@@ -26,16 +26,18 @@ def test_query_balances(chain,endpoint):
     balance = client.query_bank_all_balances(wallet1.address())
 
 
-##send tests don't seem to work at the moment with cosmpy - removing from tests
-"""
+##gas estimate for send test doesn't work - have to define gas limit manually
+##cant use rest for send_denom, have to use grpc only
 @pytest.mark.parametrize("chain", chains_to_test)
-@pytest.mark.parametrize("endpoint", endpoints)
+@pytest.mark.parametrize("endpoint", ["grpc"])
 def test_send_denom(chain,endpoint):
     cfg = get_network_cfg(endpoint,chain)
     client = LedgerClient(cfg)
     wallet1 = get_chain_wallet("MNEMONIC_ONE", chain)
     wallet2 = get_chain_wallet("MNEMONIC_TWO", chain)
     print(cfg.fee_denomination)
-    tx=client.send_tokens(destination=wallet2.address(),amount=1,denom=cfg.fee_denomination,sender=wallet1)
-    tx.wait_to_complete()
-"""
+    tx=client.send_tokens(destination=wallet2.address(),amount=1,denom=cfg.fee_denomination,sender=wallet1,gas_limit=500000)
+    response=tx.wait_to_complete()
+    assert type(tx.response.hash) == str
+
+

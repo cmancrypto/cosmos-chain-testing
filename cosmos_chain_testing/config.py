@@ -6,7 +6,7 @@ from cosmpy.aerial.wallet import LocalWallet
 #CONFIG for tests to be run
 
 #list of chains to be tested, name only needs to match that in chain_config
-chains_to_test = ["symphony_testnet"]
+chains_to_test = ["symphony_testnet","osmosis"]
 
 ##CosmPy endpoints to be tested - only allows rest and grpc
 endpoints=["rest","grpc"]
