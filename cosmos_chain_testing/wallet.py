@@ -12,7 +12,7 @@ def get_mnemonic_wallet(dotenv_varaible,prefix)->LocalWallet:
         mnemonic = os.getenv(dotenv_varaible)
         assert mnemonic
         wallet = LocalWallet.from_mnemonic(mnemonic,prefix)
-        logger.info(f" got wallet: {wallet.address()} from .env")
+        logger.info(f"\n got wallet: {wallet.address()} from .env")
         return wallet
     except AssertionError as e:
         logger.error(f"Error ensure there is a .env with a valid  mnemonic : {e}")
